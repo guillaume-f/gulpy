@@ -1,0 +1,22 @@
+{
+  "name": "gulpy",
+  "version": "1.0.0",
+  "description": "The useful framework to create simply accordion and tabs fully responsive",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/guillaume-f/gulpy.git"
+  },
+  "author": "g.flament",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/guillaume-f/gulpy/issues"
+  },
+  "homepage": "https://github.com/guillaume-f/gulpy#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1"
+  }
+}
