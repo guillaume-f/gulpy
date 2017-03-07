@@ -6,21 +6,29 @@
     <meta name="description" content="Gulpy" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet"> 
+    <!-- <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">  -->
 
     <link href="Styles/main.min.css" rel="stylesheet" />
 </head>
 
 <body>
 
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Totam aperiam tenetur dolore, a perspiciatis praesentium reprehenderit quod placeat sunt id veniam error iusto ex asperiores est molestias omnis vero culpa!</p>
+	<div class="accordion">
+		<div class="title" data-href="#test">
+			<h2>Accordion</h2>
+		</div>
+
+		<div class="content" id="#test">
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Id aliquam libero et praesentium saepe explicabo cupiditate soluta laudantium necessitatibus, repudiandae minima ad. Mollitia soluta suscipit, omnis reiciendis corporis atque illum.</p>
+		</div>
+	</div>
 
 	<script type="text/javascript" src="Scripts/Externals/jquery-3.1.1.min.js"></script>
 	<script type="text/javascript" src="Scripts/gulpy.min.js"></script>
 
 	<script type="text/javascript">
 		$(document).ready(function() {
-			$('p').gulpy();
+			$('.accordion').gulpy();
 		})
 	</script>
 </body>
