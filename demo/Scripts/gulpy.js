@@ -12,7 +12,8 @@
 
         if(checkType(settings.type)
         	&& checkHeaderElement(this, settings.header)
-        	&& checkContentElement(this, settings.content)) {
+        	&& checkContentElement(this, settings.content)
+        	&& checkNumberElements(this, settings.header, settings.content)) {
     		console.log('ok');
         }
 
@@ -49,6 +50,18 @@ function checkContentElement(elmt, contentElement) {
 
 	if(contentExist.length <= 0) {
 		console.error('It is look like your content element "' + contentElement + '" is missing.\nPlease check your document or your script.');
+		return false;
+	}
+
+	return true;
+}
+
+function checkNumberElements(elmt, headerElement, contentElement) {
+	var headings = $(document).find(elmt).find(headerElement);
+	var contents = $(document).find(elmt).find(contentElement);
+
+	if(headings.length !== contents.length) {
+		console.error('It is look like the number of titles elements (' + headings.length + ') is different of number of contents elements (' + contents.length + ').\n Please verify your html document');
 		return false;
 	}
 
