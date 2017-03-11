@@ -13,14 +13,20 @@
         if(checkType(settings.type)
         	&& checkHeaderElement(this, settings.header)
         	&& checkContentElement(this, settings.content)
-        	&& checkNumberElements(this, settings.header, settings.content)) {
-    		console.log('ok');
-        }
+        	&& checkNumberElements(this, settings.header, settings.content)
+        	&& checkTagsAndRelations(this, settings.header, settings.content)) {
 
-        // return this.css({
-        //     color: settings.color,
-        //     backgroundColor: settings.backgroundColor
-        // });
+	    	switch(settings.type) {
+			    case "accordion":
+			        buildAccordion(this, settings);
+			        break;
+			    case "tabs":
+			        console.log('tabs');
+			        break;
+			    default:
+			        console.error('An error occured.')
+			}
+        }
     };
 }(jQuery));
 
@@ -68,15 +74,56 @@ function checkNumberElements(elmt, headerElement, contentElement) {
 	return true;
 }
 
-function buildAccordion(element) {
-	$('.accordion .title').replaceWith('<a href="">' + $('.accordion .title h2').text() + '</a>');
+function checkTagsAndRelations(elmt, headerElement, contentElement) {
+	var headings = $(document).find(elmt).find(headerElement);
+	var contents = $(document).find(elmt).find(contentElement);
+	var result = true;
 
-	$('.accordion a').click(function(e) {
-		if($(this).siblings('.content:visible').length !== 0) {
-			$(this).siblings('.content').slideUp('normal');
+	$.each(headings, function() {
+		var hrefAttribute = '';
+		if($(this).prop("tagName").toLowerCase() === 'a') {
+			hrefAttribute = $(this).attr('href');
 		} else {
-			$(this).siblings('.content').slideDown('normal');
+			hrefAttribute = $(this).data('href');
 		}
-		e.preventDefault();
+
+		if(!checkHref(elmt, hrefAttribute)) {
+			result = false;
+		}
+	});
+
+	return result;
+}
+		
+function checkHref(elmt, hrefAttribute) {
+	var contentExist = $(document).find(elmt).children(hrefAttribute);
+
+	if(contentExist.length === 1) {
+		return true;
+	} else {
+		if(contentExist.length > 1) {
+			console.error('It is look like content element "'+ hrefAttribute + '" is present multiple times.')
+			return false;
+		} else {
+			console.error('It is look like title element "'+ hrefAttribute + '" has not the correct content.\n Please check your html document.');
+			return false;
+		}	
+	}
+}
+
+function buildAccordion(elmt, settings) {
+
+	$(document).find(elmt).find(settings.content).hide();
+
+	$(document).on('click', settings.header, function(e) {
+		if ($(this).next(settings.content).is(':visible')) {
+            $(this).next(settings.content).slideUp("normal");
+            e.preventDefault();
+        } else {
+            $(document).find(elmt).find(settings.content).slideUp("normal");
+            $(this).next(settings.content).slideDown("normal");
+            e.preventDefault();
+        }
+        e.preventDefault();
 	});
 }
