@@ -7,14 +7,16 @@
     	var settings = $.extend({
             type: "accordion",
             header: ".title",
-            content: ".content"
+            content: ".content", 
+            animationDuration: 500
         }, options);
 
         if(checkType(settings.type)
         	&& checkHeaderElement(this, settings.header)
         	&& checkContentElement(this, settings.content)
         	&& checkNumberElements(this, settings.header, settings.content)
-        	&& checkTagsAndRelations(this, settings.header, settings.content)) {
+        	&& checkTagsAndRelations(this, settings.header, settings.content)
+        	&& checkAnimationDuration(settings.animationDuration)) {
 
 	    	switch(settings.type) {
 			    case "accordion":
@@ -111,17 +113,63 @@ function checkHref(elmt, hrefAttribute) {
 	}
 }
 
+function checkAnimationDuration(duration) {
+
+	if(typeof duration === 'number') {
+	   	return true;
+	} else {
+		console.error('It is look like the value of animation duration is not a integer. \n Please insert an integer.');
+		return false;
+	}
+}
+
 function buildAccordion(elmt, settings) {
 
-	$(document).find(elmt).find(settings.content).hide();
+	var headings = $(document).find(elmt).find(settings.header);
+	var link;
+
+	$(document).find(elmt).addClass('gulpy-accordion');
+	$.each(headings, function() {
+		$(this).addClass('gulpy-accordion-header');
+		if($(this).prop("tagName").toLowerCase() === 'a')
+			link = $(this).attr('href');
+		else link = $(this).data('href');
+
+		$(document).find(elmt).find(link).addClass('gulpy-accordion-content').insertAfter(this);
+	});
+
+	accordionReadyToOperate(elmt, settings);
+}
+
+function accordionReadyToOperate(elmt, settings) {
+
+	$(document).find(elmt).find(settings.content).hide().addClass('gulpy-accordion-content-close');
 
 	$(document).on('click', settings.header, function(e) {
 		if ($(this).next(settings.content).is(':visible')) {
-            $(this).next(settings.content).slideUp("normal");
-            e.preventDefault();
+            $(this)
+            	.removeClass('gulpy-accordion-header-current')
+            	.next(settings.content)
+            	.stop()
+            	.slideUp(settings.animationDuration)
+            	.addClass('gulpy-accordion-content-close')
+            	.removeClass('gulpy-accordion-content-open');
         } else {
-            $(document).find(elmt).find(settings.content).slideUp("normal");
-            $(this).next(settings.content).slideDown("normal");
+        	$(document).find(elmt).find(settings.header)
+            	.removeClass('gulpy-accordion-header-current');
+
+            $(document).find(elmt).find(settings.content)
+            	.stop()
+            	.slideUp(settings.animationDuration)
+            	.addClass('gulpy-accordion-content-close')
+            	.removeClass('gulpy-accordion-content-open');
+            $(this)
+            	.addClass('gulpy-accordion-header-current')
+            	.next(settings.content)
+            	.stop()
+            	.slideDown(settings.animationDuration)
+            	.addClass('gulpy-accordion-content-open')
+            	.removeClass('gulpy-accordion-content-close');
             e.preventDefault();
         }
         e.preventDefault();
