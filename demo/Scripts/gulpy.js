@@ -23,7 +23,7 @@
 			        buildAccordion(this, settings);
 			        break;
 			    case "tabs":
-			        console.log('tabs');
+			    	buildTabs(this, settings);
 			        break;
 			    default:
 			        console.error('An error occured.')
@@ -174,4 +174,8 @@ function accordionReadyToOperate(elmt, settings) {
         }
         e.preventDefault();
 	});
+}
+
+function buildTabs(elmt, settings) {
+	
 }
