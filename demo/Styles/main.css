@@ -2322,3 +2322,21 @@ ul.unstyled
         width: calc(20.99%);
     }
 }
+.gulpy-tabs .gulpy-tabs-headers > *
+{
+    display: block;
+    float: left;
+
+    background: red;
+}
+.gulpy-tabs .gulpy-tabs-headers .gulpy-tabs-header-current
+{
+    background: orange;
+}
+.gulpy-tabs .gulpy-tabs-contents
+{
+    display: block;
+    clear: both;
+
+    background: green;
+}

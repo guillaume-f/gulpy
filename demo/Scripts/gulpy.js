@@ -115,12 +115,12 @@ function checkHref(elmt, hrefAttribute) {
 
 function checkAnimationDuration(duration) {
 
-	if(typeof duration === 'number') {
-	   	return true;
-	} else {
-		console.error('It is look like the value of animation duration is not a integer. \n Please insert an integer.');
+	if(typeof duration !== 'number') {
+	   	console.error('It is look like the value of animation duration is not a integer. \n Please insert an integer.');
 		return false;
 	}
+
+	return true;
 }
 
 function buildAccordion(elmt, settings) {
@@ -135,7 +135,9 @@ function buildAccordion(elmt, settings) {
 			link = $(this).attr('href');
 		else link = $(this).data('href');
 
-		$(document).find(elmt).find(link).addClass('gulpy-accordion-content').insertAfter(this);
+		$(document).find(elmt).find(link)
+			.addClass('gulpy-accordion-content')
+			.insertAfter(this);
 	});
 
 	accordionReadyToOperate(elmt, settings);
@@ -177,5 +179,66 @@ function accordionReadyToOperate(elmt, settings) {
 }
 
 function buildTabs(elmt, settings) {
-	
+	var headings = $(document).find(elmt).find(settings.header);
+	var contents = $(document).find(elmt).find(settings.content);
+
+	$(document).find(elmt)
+		.addClass('gulpy-tabs');
+
+	$(document).find(elmt)
+		.prepend('<div class="gulpy-tabs-headers"></div>');
+	$(document).find(elmt).find('.gulpy-tabs-headers')
+		.append(headings);
+	$(document).find(elmt).find(settings.header)
+		.addClass('gulpy-tabs-header');
+
+	$(document).find(elmt)
+		.append('<div class="gulpy-tabs-contents"></div>');
+	$(document).find(elmt).find('.gulpy-tabs-contents')
+		.append(contents);
+	$(document).find(elmt).find(settings.content)
+		.addClass('gulpy-tabs-content');
+
+	tabsReadyToOperate(elmt, settings);
+}
+
+function tabsReadyToOperate(elmt, settings) {
+	var currentElement = $(document).find(elmt).find(settings.header).first();
+	var link;
+
+	$(document).find(elmt).find(settings.content)
+		.hide();
+
+	currentElement.addClass('gulpy-tabs-header-current');
+
+	link = getTarget(currentElement);
+
+	$(document).find(elmt).find('.gulpy-tabs-contents').find(link)
+		.show()
+		.addClass('gulpy-tabs-content-current');
+
+	$(document).on('click', settings.header, function(e) {
+		$(document).find(elmt).find(settings.header)
+			.removeClass('gulpy-tabs-header-current');
+		$(document).find(elmt).find(settings.content)
+			.hide()
+			.removeClass('gulpy-tabs-content-current');
+
+		currentElement = $(this);
+		link = getTarget(currentElement);
+
+		$(document).find(elmt).find('.gulpy-tabs-contents').find(link)
+			.stop()
+			.fadeIn(settings.animationDuration)
+			.addClass('gulpy-tabs-content-current');
+
+		currentElement.addClass('gulpy-tabs-header-current');
+		e.preventDefault();
+	});
+}
+
+function getTarget(elmt) {
+	if(elmt.prop("tagName").toLowerCase() === 'a')
+		return elmt.attr('href');
+	else return elmt.data('href');
 }
