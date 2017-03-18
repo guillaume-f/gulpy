@@ -1,6 +1,7 @@
 (function ($) {
 
  	"use strict";
+ 	var viewportWidth = $(window).width();
 
     $.fn.gulpy = function(options) {
 
@@ -11,8 +12,11 @@
             animationDuration: 500,
             event: 'hover',
             openIndicator: '<span class=\'gulpy-accordion-indicator-open\'>+</span>',
-            closeIndicator: '<span class=\'gulpy-accordion-indicator-close\'>-</span>'
+            closeIndicator: '<span class=\'gulpy-accordion-indicator-close\'>-</span>',
+            responsive: null
         }, options);
+
+        checkResponsive(settings.responsive);
 
         if(checkType(settings.type)
         	&& checkHeaderElement(this, settings.header)
@@ -144,6 +148,15 @@ function checkIndicators(open, close) {
 		return false;
 	}
 	return true;
+}
+
+function checkResponsive(responsive) {
+	if(typeof responsive != 'object') {
+		console.error('Responsive setting murst be an array of objects');
+		return false;
+	}
+	return true;
+	
 }
 
 function buildAccordion(elmt, settings) {

@@ -56,7 +56,15 @@
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$('.tabs').gulpy({
-				// type: 'tabs'
+				type: 'tabs',
+				responsive: [
+				{
+					breakpoint: 960,
+					settings: {
+						type: 'accordion'
+					}
+				}
+				]
 			});
 		})
 	</script>
