@@ -52,9 +52,8 @@
 	  //           header: ".title",
 	  //           content: ".content", 
 	  //           animationDuration: 500,
-	  //           event: 'hover',
-	  //           openIndicator: '<span class=\'gulpy-accordion-indicator-open\'>+</span>',
-	  //           closeIndicator: '<span class=\'gulpy-accordion-indicator-close\'>-</span>',
+	  //           openIndicator: '<span>+</span>',
+	  //           closeIndicator: '<span>-</span>',
 	  //           responsive: null
 	  //       }, settings.responsive[settingsResponsiveCell].settings);
 
