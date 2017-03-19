@@ -5,33 +5,33 @@
 
     $.fn.gulpy = function(options) {
 
-    	var $this = this;
+    	var _this = this;
 
     	var settings = $.extend({
             type: "accordion",
             header: ".title",
             content: ".content", 
             animationDuration: 500,
-            openIndicator: '<span class=\'gulpy-accordion-indicator-open\'>+</span>',
-            closeIndicator: '<span class=\'gulpy-accordion-indicator-close\'>-</span>',
+            openIndicator: '<span>+</span>',
+            closeIndicator: '<span>-</span>',
             responsive: null
         }, options);
 
         if(checkType(settings.type)
-        	&& checkHeaderElement(this, settings.header)
-        	&& checkContentElement(this, settings.content)
-        	&& checkNumberElements(this, settings.header, settings.content)
-        	&& checkTagsAndRelations(this, settings.header, settings.content)
+        	&& checkHeaderElement(_this, settings.header)
+        	&& checkContentElement(_this, settings.content)
+        	&& checkNumberElements(_this, settings.header, settings.content)
+        	&& checkTagsAndRelations(_this, settings.header, settings.content)
         	&& checkAnimationDuration(settings.animationDuration)
         	&& checkIndicators(settings.openIndicator, settings.closeIndicator)
         	&& checkResponsive(settings.responsive)) {
 
 	    	switch(settings.type) {
 			    case "accordion":
-			        buildAccordion(this, settings);
+			        buildAccordion(_this, settings);
 			        break;
 			    case "tabs":
-			    	buildTabs(this, settings);
+			    	buildTabs(_this, settings);
 			        break;
 			    default:
 			        console.error('An error occured.')
@@ -182,7 +182,7 @@ function buildAccordion(elmt, settings) {
 	$.each(headings, function() {
 		var link = getTarget($(this));
 		$(this).addClass('gulpy-accordion-header')
-			.append(settings.openIndicator);
+		.append('<div class=\'gulpy-accordion-indicator\'>' + settings.openIndicator + '</div>');
 		$(document).find(elmt).find(link)
 			.addClass('gulpy-accordion-content')
 			.insertAfter(this);
@@ -199,7 +199,10 @@ function accordionReadyToOperate(elmt, settings) {
 		if ($(this).next(settings.content).is(':visible')) {
             $(this)
             	.removeClass('gulpy-accordion-header-current')
+            	.find('.gulpy-accordion-indicator')
+            	.empty()
             	.append(settings.openIndicator)
+            	.closest(this)
             	.next(settings.content)
             	.stop()
             	.slideUp(settings.animationDuration)
@@ -208,6 +211,8 @@ function accordionReadyToOperate(elmt, settings) {
         } else {
         	$(document).find(elmt).find(settings.header)
             	.removeClass('gulpy-accordion-header-current')
+            	.find('.gulpy-accordion-indicator')
+            	.empty()
             	.append(settings.openIndicator);
 
             $(document).find(elmt).find(settings.content)
@@ -218,7 +223,10 @@ function accordionReadyToOperate(elmt, settings) {
 
             $(this)
             	.addClass('gulpy-accordion-header-current')
+            	.find('.gulpy-accordion-indicator')
+            	.empty()
             	.append(settings.closeIndicator)
+            	.closest(this)
             	.next(settings.content)
             	.stop()
             	.slideDown(settings.animationDuration)
