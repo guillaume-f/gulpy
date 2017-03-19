@@ -5,6 +5,8 @@
 
     $.fn.gulpy = function(options) {
 
+    	var $this = this;
+
     	var settings = $.extend({
             type: "accordion",
             header: ".title",
@@ -16,8 +18,6 @@
             responsive: null
         }, options);
 
-        checkResponsive(settings.responsive);
-
         if(checkType(settings.type)
         	&& checkHeaderElement(this, settings.header)
         	&& checkContentElement(this, settings.content)
@@ -25,7 +25,8 @@
         	&& checkTagsAndRelations(this, settings.header, settings.content)
         	&& checkAnimationDuration(settings.animationDuration)
         	&& checkEvent(settings.event)
-        	&& checkIndicators(settings.openIndicator, settings.closeIndicator)) {
+        	&& checkIndicators(settings.openIndicator, settings.closeIndicator)
+        	&& checkResponsive(settings.responsive)) {
 
 	    	switch(settings.type) {
 			    case "accordion":
@@ -38,6 +39,38 @@
 			        console.error('An error occured.')
 			}
         }
+
+    	
+        if(settings.responsive && typeof settings.responsive == 'object' && settings.responsive != null) {
+        	var settingsResponsiveCell = null;
+        	for(var i=0; i<settings.responsive.length; i++) {
+        		if(viewportWidth <= settings.responsive[i].breakpoint) {
+        			settingsResponsiveCell = i;
+        		}
+        	}
+
+	        var newSettings = $.extend({
+	            type: "accordion",
+	            header: ".title",
+	            content: ".content", 
+	            animationDuration: 500,
+	            event: 'hover',
+	            openIndicator: '<span class=\'gulpy-accordion-indicator-open\'>+</span>',
+	            closeIndicator: '<span class=\'gulpy-accordion-indicator-close\'>-</span>',
+	            responsive: null
+	        }, settings.responsive[settingsResponsiveCell].settings);
+
+	        switch(newSettings.type) {
+			    case "accordion":
+			        buildAccordion(this, settings);
+			        break;
+			    case "tabs":
+			    	buildTabs(this, settings);
+			        break;
+			    default:
+			        console.error('An error occured.')
+			}
+	    }
     };
 }(jQuery));
 
@@ -156,7 +189,6 @@ function checkResponsive(responsive) {
 		return false;
 	}
 	return true;
-	
 }
 
 function buildAccordion(elmt, settings) {
