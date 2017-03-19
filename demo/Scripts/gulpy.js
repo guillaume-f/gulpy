@@ -12,7 +12,6 @@
             header: ".title",
             content: ".content", 
             animationDuration: 500,
-            event: 'hover',
             openIndicator: '<span class=\'gulpy-accordion-indicator-open\'>+</span>',
             closeIndicator: '<span class=\'gulpy-accordion-indicator-close\'>-</span>',
             responsive: null
@@ -24,7 +23,6 @@
         	&& checkNumberElements(this, settings.header, settings.content)
         	&& checkTagsAndRelations(this, settings.header, settings.content)
         	&& checkAnimationDuration(settings.animationDuration)
-        	&& checkEvent(settings.event)
         	&& checkIndicators(settings.openIndicator, settings.closeIndicator)
         	&& checkResponsive(settings.responsive)) {
 
@@ -41,36 +39,36 @@
         }
 
     	
-        if(settings.responsive && typeof settings.responsive == 'object' && settings.responsive != null) {
-        	var settingsResponsiveCell = null;
-        	for(var i=0; i<settings.responsive.length; i++) {
-        		if(viewportWidth <= settings.responsive[i].breakpoint) {
-        			settingsResponsiveCell = i;
-        		}
-        	}
+   //      if(settings.responsive && typeof settings.responsive == 'object' && settings.responsive != null) {
+   //      	var settingsResponsiveCell = null;
+   //      	for(var i=0; i<settings.responsive.length; i++) {
+   //      		if(viewportWidth <= settings.responsive[i].breakpoint) {
+   //      			settingsResponsiveCell = i;
+   //      		}
+   //      	}
 
-	        var newSettings = $.extend({
-	            type: "accordion",
-	            header: ".title",
-	            content: ".content", 
-	            animationDuration: 500,
-	            event: 'hover',
-	            openIndicator: '<span class=\'gulpy-accordion-indicator-open\'>+</span>',
-	            closeIndicator: '<span class=\'gulpy-accordion-indicator-close\'>-</span>',
-	            responsive: null
-	        }, settings.responsive[settingsResponsiveCell].settings);
+	  //       var newSettings = $.extend({
+	  //           type: "accordion",
+	  //           header: ".title",
+	  //           content: ".content", 
+	  //           animationDuration: 500,
+	  //           event: 'hover',
+	  //           openIndicator: '<span class=\'gulpy-accordion-indicator-open\'>+</span>',
+	  //           closeIndicator: '<span class=\'gulpy-accordion-indicator-close\'>-</span>',
+	  //           responsive: null
+	  //       }, settings.responsive[settingsResponsiveCell].settings);
 
-	        switch(newSettings.type) {
-			    case "accordion":
-			        buildAccordion(this, settings);
-			        break;
-			    case "tabs":
-			    	buildTabs(this, settings);
-			        break;
-			    default:
-			        console.error('An error occured.')
-			}
-	    }
+	  //       switch(newSettings.type) {
+			//     case "accordion":
+			//         buildAccordion(this, settings);
+			//         break;
+			//     case "tabs":
+			//     	buildTabs(this, settings);
+			//         break;
+			//     default:
+			//         console.error('An error occured.')
+			// }
+	  //   }
     };
 }(jQuery));
 
@@ -124,12 +122,7 @@ function checkTagsAndRelations(elmt, headerElement, contentElement) {
 	var result = true;
 
 	$.each(headings, function() {
-		var hrefAttribute = '';
-		if($(this).prop("tagName").toLowerCase() === 'a') {
-			hrefAttribute = $(this).attr('href');
-		} else {
-			hrefAttribute = $(this).data('href');
-		}
+		var hrefAttribute = getTarget($(this));
 
 		if(!checkHref(elmt, hrefAttribute)) {
 			result = false;
@@ -165,16 +158,6 @@ function checkAnimationDuration(duration) {
 	return true;
 }
 
-function checkEvent(evt) {
-
-	if(evt !== 'click' && evt !== 'hover') {
-		console.error('Your event is ' + evt + ' but it is wrong. \n Make sure your type equals "click" or "hover"');
-		return false;
-	}
-
-	return true;
-}
-
 function checkIndicators(open, close) {
 	if(typeof open !== 'string' || typeof close !== 'string') {
 		console.error('Your indicators must be a jQuery selector');
@@ -194,16 +177,12 @@ function checkResponsive(responsive) {
 function buildAccordion(elmt, settings) {
 
 	var headings = $(document).find(elmt).find(settings.header);
-	var link;
 
 	$(document).find(elmt).addClass('gulpy-accordion');
 	$.each(headings, function() {
+		var link = getTarget($(this));
 		$(this).addClass('gulpy-accordion-header')
 			.append(settings.openIndicator);
-		if($(this).prop("tagName").toLowerCase() === 'a')
-			link = $(this).attr('href');
-		else link = $(this).data('href');
-
 		$(document).find(elmt).find(link)
 			.addClass('gulpy-accordion-content')
 			.insertAfter(this);
