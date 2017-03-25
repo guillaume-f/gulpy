@@ -1,3 +1,4 @@
+var initialContentElement;
 (function ($) {
 
  	"use strict";
@@ -6,68 +7,44 @@
     $.fn.gulpy = function(options) {
 
     	var _this = this;
+    	initialContentElement = _this.children();
 
-    	var settings = $.extend({
-            type: "accordion",
+    	var defaultSettings = {
+    		type: "accordion",
             header: ".title",
             content: ".content", 
             animationDuration: 500,
             openIndicator: '<span>+</span>',
             closeIndicator: '<span>-</span>',
             responsive: null
-        }, options);
+    	}
 
-        if(checkType(settings.type)
-        	&& checkHeaderElement(_this, settings.header)
-        	&& checkContentElement(_this, settings.content)
-        	&& checkNumberElements(_this, settings.header, settings.content)
-        	&& checkTagsAndRelations(_this, settings.header, settings.content)
-        	&& checkAnimationDuration(settings.animationDuration)
-        	&& checkIndicators(settings.openIndicator, settings.closeIndicator)
-        	&& checkResponsive(settings.responsive)) {
+    	var currentSettings = $.extend({}, defaultSettings, options);
+    	var initialSettings = currentSettings;
+  	
+        if(currentSettings.responsive && typeof currentSettings.responsive == 'object' && currentSettings.responsive != null) {
 
-	    	switch(settings.type) {
-			    case "accordion":
-			        buildAccordion(_this, settings);
-			        break;
-			    case "tabs":
-			    	buildTabs(_this, settings);
-			        break;
-			    default:
-			        console.error('An error occured.')
-			}
-        }
+        	var settingsResponsiveCell = checkResponsiveEquality(currentSettings, viewportWidth);
 
-    	
-   //      if(settings.responsive && typeof settings.responsive == 'object' && settings.responsive != null) {
-   //      	var settingsResponsiveCell = null;
-   //      	for(var i=0; i<settings.responsive.length; i++) {
-   //      		if(viewportWidth <= settings.responsive[i].breakpoint) {
-   //      			settingsResponsiveCell = i;
-   //      		}
-   //      	}
+        	if(settingsResponsiveCell != null) {
+        		currentSettings = $.extend({}, defaultSettings, initialSettings.responsive[settingsResponsiveCell].settings);
+        	}
+        	$(window).resize(function() {
+        		if(viewportWidth !== $(window).width()) {
+        			viewportWidth = $(window).width();
+        			settingsResponsiveCell = checkResponsiveEquality(initialSettings, viewportWidth);
 
-	  //       var newSettings = $.extend({
-	  //           type: "accordion",
-	  //           header: ".title",
-	  //           content: ".content", 
-	  //           animationDuration: 500,
-	  //           openIndicator: '<span>+</span>',
-	  //           closeIndicator: '<span>-</span>',
-	  //           responsive: null
-	  //       }, settings.responsive[settingsResponsiveCell].settings);
+        			if(settingsResponsiveCell != null) {
+		        		currentSettings = $.extend({}, defaultSettings, initialSettings.responsive[settingsResponsiveCell].settings);
+		        	} else {
+		        		currentSettings = initialSettings;
+		        	}
+		        	checkSettingsValues(_this, currentSettings);
+        		}
+        	});
+	    }
 
-	  //       switch(newSettings.type) {
-			//     case "accordion":
-			//         buildAccordion(this, settings);
-			//         break;
-			//     case "tabs":
-			//     	buildTabs(this, settings);
-			//         break;
-			//     default:
-			//         console.error('An error occured.')
-			// }
-	  //   }
+	    checkSettingsValues(_this, currentSettings);
     };
 }(jQuery));
 
@@ -82,7 +59,6 @@ function checkType(type) {
 }
 
 function checkHeaderElement(elmt, headerElement) {
-
 	var headerExist = $(document).find(elmt).find(headerElement);
 	if(headerExist.length <= 0) {
 		console.error('It is look like your header element "' + headerElement + '" is missing.\nPlease check your document or your script.');
@@ -132,7 +108,8 @@ function checkTagsAndRelations(elmt, headerElement, contentElement) {
 }
 		
 function checkHref(elmt, hrefAttribute) {
-	var contentExist = $(document).find(elmt).children(hrefAttribute);
+	// var contentExist = $(document).find(elmt).children(hrefAttribute);
+	var contentExist = $(document).find(elmt).find(hrefAttribute);
 
 	if(contentExist.length === 1) {
 		return true;
@@ -160,14 +137,6 @@ function checkAnimationDuration(duration) {
 function checkIndicators(open, close) {
 	if(typeof open !== 'string' || typeof close !== 'string') {
 		console.error('Your indicators must be a jQuery selector');
-		return false;
-	}
-	return true;
-}
-
-function checkResponsive(responsive) {
-	if(typeof responsive != 'object') {
-		console.error('Responsive setting murst be an array of objects');
 		return false;
 	}
 	return true;
@@ -300,4 +269,50 @@ function getTarget(elmt) {
 	if(elmt.prop("tagName").toLowerCase() === 'a')
 		return elmt.attr('href');
 	else return elmt.data('href');
+}
+
+function chooseWhatBuild(elmt, settings) {
+	clear(elmt);
+	switch(settings.type) {
+	    case "accordion":
+	        buildAccordion(elmt, settings);
+	        break;
+	    case "tabs":
+	    	buildTabs(elmt, settings);
+	        break;
+	    default:
+	        console.error('An error occured.')
+	}
+}
+
+function checkResponsiveEquality(settings, viewportWidth) {
+	var settingsResponsiveCell = null;
+
+	if(settings.responsive != null) {
+		for(var i=0; i<settings.responsive.length; i++) {
+			if(viewportWidth <= settings.responsive[i].breakpoint) {
+				settingsResponsiveCell = i;
+			}
+		}
+	}
+
+	return settingsResponsiveCell;
+}
+
+function checkSettingsValues(elmt, settings) {
+    if(checkType(settings.type)
+    	&& checkHeaderElement(elmt, settings.header)
+    	&& checkContentElement(elmt, settings.content)
+    	&& checkNumberElements(elmt, settings.header, settings.content)
+    	&& checkTagsAndRelations(elmt, settings.header, settings.content)
+    	&& checkAnimationDuration(settings.animationDuration)
+    	&& checkIndicators(settings.openIndicator, settings.closeIndicator)) {
+
+    	chooseWhatBuild(elmt, settings);
+    }
+}
+
+function clear(elmt) {
+	$(document).find(elmt).empty();
+	$(document).find(elmt).append(initialContentElement);
 }
