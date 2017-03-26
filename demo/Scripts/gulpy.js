@@ -252,7 +252,7 @@ function tabsReadyToOperate(elmt, settings) {
 			.hide()
 			.removeClass('gulpy-tabs-content-current');
 
-		currentElement = $(this);
+		currentElement = $(e.currentTarget);
 		link = getTarget(currentElement);
 
 		$(document).find(elmt).find('.gulpy-tabs-contents').find(link)
