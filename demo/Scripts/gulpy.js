@@ -147,13 +147,13 @@ function buildAccordion(elmt, settings) {
 	var headings = $(document).find(elmt).find(settings.header);
 
 	$(document).find(elmt).addClass('gulpy-accordion');
-	$.each(headings, function() {
-		var link = getTarget($(this));
-		$(this).addClass('gulpy-accordion-header')
+	$.each(headings, function(id, value) {
+		var link = getTarget($(value));
+		$(value).addClass('gulpy-accordion-header')
 		.append('<div class=\'gulpy-accordion-indicator\'>' + settings.openIndicator + '</div>');
 		$(document).find(elmt).find(link)
 			.addClass('gulpy-accordion-content')
-			.insertAfter(this);
+			.insertAfter(value);
 	});
 
 	accordionReadyToOperate(elmt, settings);
@@ -164,13 +164,13 @@ function accordionReadyToOperate(elmt, settings) {
 	$(document).find(elmt).find(settings.content).hide().addClass('gulpy-accordion-content-close');
 
 	$(document).on('click', settings.header, function(e) {
-		if ($(this).next(settings.content).is(':visible')) {
-            $(this)
+		if ($(e.currentTarget).next(settings.content).is(':visible')) {
+            $(e.currentTarget)
             	.removeClass('gulpy-accordion-header-current')
             	.find('.gulpy-accordion-indicator')
             	.empty()
             	.append(settings.openIndicator)
-            	.closest(this)
+            	.closest(e.currentTarget)
             	.next(settings.content)
             	.stop()
             	.slideUp(settings.animationDuration)
@@ -189,12 +189,12 @@ function accordionReadyToOperate(elmt, settings) {
             	.addClass('gulpy-accordion-content-close')
             	.removeClass('gulpy-accordion-content-open');
 
-            $(this)
+            $(e.currentTarget)
             	.addClass('gulpy-accordion-header-current')
             	.find('.gulpy-accordion-indicator')
             	.empty()
             	.append(settings.closeIndicator)
-            	.closest(this)
+            	.closest(e.currentTarget)
             	.next(settings.content)
             	.stop()
             	.slideDown(settings.animationDuration)
