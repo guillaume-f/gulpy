@@ -168,7 +168,6 @@ function buildAccordion(elmt, settings) {
 }
 
 function accordionReadyToOperate(elmt, settings) {
-
 	$(document).find(elmt).find(settings.content).hide().addClass('gulpy-accordion-content-close');
 	var listener = ".gulpy-accordion " + settings.header;
 
@@ -187,13 +186,13 @@ function accordionReadyToOperate(elmt, settings) {
             	.addClass('gulpy-accordion-content-close')
             	.removeClass('gulpy-accordion-content-open');
         } else {
-        	$(document).find(elmt).find(settings.header)
+        	$(document).find('.gulpy-accordion').find(settings.header)
             	.removeClass('gulpy-accordion-header-current')
             	.find('.gulpy-accordion-indicator')
             	.empty()
             	.append(settings.openIndicator);
 
-            $(document).find(elmt).find(settings.content)
+            $(document).find('.gulpy-accordion').find(settings.content)
             	.stop()
             	.slideUp(settings.animationDuration)
             	.addClass('gulpy-accordion-content-close')
@@ -257,16 +256,16 @@ function tabsReadyToOperate(elmt, settings) {
 
 	$(document).on('click', listener, function(e) {
 		e.stopImmediatePropagation();
-		$(document).find(elmt).find(settings.header)
+		$(document).find('.gulpy-tabs').find(settings.header)
 			.removeClass('gulpy-tabs-header-current');
-		$(document).find(elmt).find(settings.content)
+		$(document).find('.gulpy-tabs').find(settings.content)
 			.hide()
 			.removeClass('gulpy-tabs-content-current');
 
 		currentElement = $(e.currentTarget);
 		link = getTarget(currentElement);
 
-		$(document).find(elmt).find('.gulpy-tabs-contents').find(link)
+		$(document).find('.gulpy-tabs').find('.gulpy-tabs-contents').find(link)
 			.stop()
 			.fadeIn(settings.animationDuration)
 			.addClass('gulpy-tabs-content-current');
