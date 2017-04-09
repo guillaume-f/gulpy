@@ -1,4 +1,5 @@
 var initialContentElement;
+var initialContentElementDuplicated;
 (function ($) {
 
  	"use strict";
@@ -7,7 +8,8 @@ var initialContentElement;
     $.fn.gulpy = function(options) {
 
     	var _this = this;
-    	initialContentElement = _this.children();
+    	initialContentElement = _this.clone();
+    	initialContentElementDuplicated = initialContentElement.clone();
 
     	var defaultSettings = {
     		type: "accordion",
@@ -25,21 +27,28 @@ var initialContentElement;
         if(currentSettings.responsive && typeof currentSettings.responsive == 'object' && currentSettings.responsive != null) {
 
         	var settingsResponsiveCell = checkResponsiveEquality(currentSettings, viewportWidth);
+        	var newSettingsResponsiveCell = null;
 
         	if(settingsResponsiveCell != null) {
         		currentSettings = $.extend({}, defaultSettings, initialSettings.responsive[settingsResponsiveCell].settings);
         	}
         	$(window).resize(function() {
+        		_this = initialContentElementDuplicated;
         		if(viewportWidth !== $(window).width()) {
         			viewportWidth = $(window).width();
-        			settingsResponsiveCell = checkResponsiveEquality(initialSettings, viewportWidth);
+        			newSettingsResponsiveCell = checkResponsiveEquality(initialSettings, viewportWidth);
 
-        			if(settingsResponsiveCell != null) {
-		        		currentSettings = $.extend({}, defaultSettings, initialSettings.responsive[settingsResponsiveCell].settings);
-		        	} else {
-		        		currentSettings = initialSettings;
-		        	}
-		        	checkSettingsValues(_this, currentSettings);
+        			if(newSettingsResponsiveCell != settingsResponsiveCell) {
+        				settingsResponsiveCell = newSettingsResponsiveCell;
+        				newSettingsResponsiveCell = null;
+        				if(settingsResponsiveCell != null) {
+							currentSettings = $.extend({}, defaultSettings, initialSettings.responsive[settingsResponsiveCell].settings);
+		        			checkSettingsValues(_this, currentSettings);
+        				} else {
+			        		currentSettings = initialSettings;
+			        		checkSettingsValues(_this, currentSettings);
+			        	}
+		        	} 
         		}
         	});
 	    }
@@ -96,8 +105,8 @@ function checkTagsAndRelations(elmt, headerElement, contentElement) {
 	var contents = $(document).find(elmt).find(contentElement);
 	var result = true;
 
-	$.each(headings, function() {
-		var hrefAttribute = getTarget($(this));
+	$.each(headings, function(id, value) {
+		var hrefAttribute = getTarget($(value));
 
 		if(!checkHref(elmt, hrefAttribute)) {
 			result = false;
@@ -108,7 +117,6 @@ function checkTagsAndRelations(elmt, headerElement, contentElement) {
 }
 		
 function checkHref(elmt, hrefAttribute) {
-	// var contentExist = $(document).find(elmt).children(hrefAttribute);
 	var contentExist = $(document).find(elmt).find(hrefAttribute);
 
 	if(contentExist.length === 1) {
@@ -144,26 +152,28 @@ function checkIndicators(open, close) {
 
 function buildAccordion(elmt, settings) {
 
-	var headings = $(document).find(elmt).find(settings.header);
+	var headings = $(document).find(initialContentElementDuplicated).find(settings.header);
 
-	$(document).find(elmt).addClass('gulpy-accordion');
+	$(document).find(initialContentElementDuplicated).addClass('gulpy-accordion');
 	$.each(headings, function(id, value) {
 		var link = getTarget($(value));
 		$(value).addClass('gulpy-accordion-header')
 		.append('<div class=\'gulpy-accordion-indicator\'>' + settings.openIndicator + '</div>');
-		$(document).find(elmt).find(link)
+		$(document).find(initialContentElementDuplicated).find(link)
 			.addClass('gulpy-accordion-content')
 			.insertAfter(value);
 	});
 
-	accordionReadyToOperate(elmt, settings);
+	accordionReadyToOperate(initialContentElementDuplicated, settings);
 }
 
 function accordionReadyToOperate(elmt, settings) {
 
 	$(document).find(elmt).find(settings.content).hide().addClass('gulpy-accordion-content-close');
+	var listener = ".gulpy-accordion " + settings.header;
 
-	$(document).on('click', settings.header, function(e) {
+	$(document).on('click', listener, function(e) {
+		e.stopImmediatePropagation();
 		if ($(e.currentTarget).next(settings.content).is(':visible')) {
             $(e.currentTarget)
             	.removeClass('gulpy-accordion-header-current')
@@ -200,39 +210,39 @@ function accordionReadyToOperate(elmt, settings) {
             	.slideDown(settings.animationDuration)
             	.addClass('gulpy-accordion-content-open')
             	.removeClass('gulpy-accordion-content-close');
-            e.preventDefault();
         }
         e.preventDefault();
 	});
 }
 
 function buildTabs(elmt, settings) {
-	var headings = $(document).find(elmt).find(settings.header);
-	var contents = $(document).find(elmt).find(settings.content);
+	var headings = $(document).find(initialContentElementDuplicated).find(settings.header);
+	var contents = $(document).find(initialContentElementDuplicated).find(settings.content);
 
-	$(document).find(elmt)
+	$(document).find(initialContentElementDuplicated)
 		.addClass('gulpy-tabs');
 
-	$(document).find(elmt)
+	$(document).find(initialContentElementDuplicated)
 		.prepend('<div class="gulpy-tabs-headers"></div>');
-	$(document).find(elmt).find('.gulpy-tabs-headers')
+	$(document).find(initialContentElementDuplicated).find('.gulpy-tabs-headers')
 		.append(headings);
-	$(document).find(elmt).find(settings.header)
+	$(document).find(initialContentElementDuplicated).find(settings.header)
 		.addClass('gulpy-tabs-header');
 
-	$(document).find(elmt)
+	$(document).find(initialContentElementDuplicated)
 		.append('<div class="gulpy-tabs-contents"></div>');
-	$(document).find(elmt).find('.gulpy-tabs-contents')
+	$(document).find(initialContentElementDuplicated).find('.gulpy-tabs-contents')
 		.append(contents);
-	$(document).find(elmt).find(settings.content)
+	$(document).find(initialContentElementDuplicated).find(settings.content)
 		.addClass('gulpy-tabs-content');
 
-	tabsReadyToOperate(elmt, settings);
+	tabsReadyToOperate(initialContentElementDuplicated, settings);
 }
 
 function tabsReadyToOperate(elmt, settings) {
 	var currentElement = $(document).find(elmt).find(settings.header).first();
 	var link;
+	var listener = ".gulpy-tabs " + settings.header;
 
 	$(document).find(elmt).find(settings.content)
 		.hide();
@@ -245,7 +255,8 @@ function tabsReadyToOperate(elmt, settings) {
 		.show()
 		.addClass('gulpy-tabs-content-current');
 
-	$(document).on('click', settings.header, function(e) {
+	$(document).on('click', listener, function(e) {
+		e.stopImmediatePropagation();
 		$(document).find(elmt).find(settings.header)
 			.removeClass('gulpy-tabs-header-current');
 		$(document).find(elmt).find(settings.content)
@@ -313,6 +324,6 @@ function checkSettingsValues(elmt, settings) {
 }
 
 function clear(elmt) {
-	$(document).find(elmt).empty();
-	$(document).find(elmt).append(initialContentElement);
+	initialContentElementDuplicated = initialContentElement.clone();
+	$(document).find(elmt).replaceWith(initialContentElementDuplicated);
 }
