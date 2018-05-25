@@ -1,0 +1,35 @@
+﻿.contenu {
+    .font-size(1.3);
+    color: @mediumGrayColor;
+
+    .chapeau {
+        margin-top: 25px;
+        margin-bottom: 25px;       
+    }
+
+    .simpleActu .chapeau {
+        font-weight: 600;
+        font-style: italic;
+    }
+    .imgFloatRight,.imgFloatLeft{
+        margin-top:20px;
+        @media (max-width: 767px) {
+            margin-top:0;
+        }
+    }
+}
+
+/*Class flex mise sur le parent permet de placer l'image en dessous du chapeau*/
+@media (max-width: 767px) {
+    .flex {
+        display: flex;
+        flex-direction: column;
+
+        .imgFloatRight, .imgFloatLeft, .sliderInterne {
+            order: 1;
+        }
+        .after {
+            order: 2;
+        }
+    }
+}

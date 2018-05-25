@@ -7,7 +7,8 @@ var gulp = require('gulp'),
 	autoprefixer = require('gulp-autoprefixer'),
 	minifyCss = require('gulp-csso'),
 
-	uglify = require('gulp-uglify');
+	uglify = require('gulp-uglify')
+	browserSync = require('browser-sync');
 
 gulp.task('styles', function(){
   return gulp.src('demo/Styles/main.less')
@@ -34,7 +35,15 @@ gulp.task('scripts', function() {
     .pipe(gulp.dest('demo/Scripts'))
 });
 
-gulp.task('watch', ['styles', 'scripts'], function(){
+gulp.task('browserSync', function() {
+	browserSync({
+		server: {
+			baseDir: 'demo'
+		}
+	})
+})
+
+gulp.task('watch', ['styles', 'scripts', 'browserSync'], function(){
   gulp.watch('demo/Styles/**/*.less', ['styles']); 
   gulp.watch('demo/Scripts/*.js', ['scripts']);
 });

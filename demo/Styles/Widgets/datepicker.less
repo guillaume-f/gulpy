@@ -1,0 +1,119 @@
+﻿.ui-datepicker {
+    border: solid 1px @lightmediumGrayColor;
+    border-radius: 0;
+    font-family: @font-family-sans-serif;
+    padding: 0;
+    z-index: 9999 !important;
+
+    .ui-datepicker-header {
+        position: relative;
+        padding: 0;
+        border-radius: 0;
+        border: 0;
+        background: @lightGrayColor;
+
+        .ui-datepicker-title {
+            color: @darkGrayColor;
+            .font-size(1.6);
+            font-weight: 600;
+            margin: 0;
+            line-height: 1.5;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        .ui-datepicker-prev,
+        .ui-datepicker-next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: auto;
+            border-radius: 0;
+            background: transparent !important;
+            border: 0 !important;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+
+            .ui-icon {
+                display: none;
+            }
+
+            &:after {
+                font-family: @icons;
+                color: @darkGrayColor;
+                line-height: 1;
+            }
+        }
+
+        .ui-datepicker-prev {
+            left: 0;
+
+            &:after {
+                content: 'b';
+            }
+        }
+
+        .ui-datepicker-next {
+            left: auto;
+            right: 0;
+
+            &:after {
+                content: 'c';
+            }
+        }
+    }
+
+    .ui-datepicker-calendar {
+        background-color: @whiteColor;
+
+        thead tr {
+            th {
+                .font-size(1.0);
+                text-transform: uppercase;
+                color: @primaryColor;
+                text-transform: uppercase;
+                font-weight: 300;
+                text-align: center;
+            }
+        }
+
+        tbody tr {
+            td {
+                padding: 0;
+                text-align: center;
+
+                a {
+                    display: block;
+                    .font-size(1.2);
+                    border: 0;
+                    background-color: @whiteColor;
+                    color: @darkGrayColor;
+                    padding: 4px 5px;
+                    text-align: center;
+                    text-decoration: none;
+
+                    &:hover, &:focus, &:active {
+                        background-color: @cccColor;
+                    }
+
+                    &.ui-state-active {
+                        background-color: @primaryColor;
+                        font-weight: 600;
+                        color: @whiteColor;
+                    }
+                }
+
+                &.ui-state-disabled {
+                    span {
+                        border: 0;
+                        color: @darkGrayColor;
+                        padding: 4px 5px;
+                        text-align: center;
+                    }
+                }
+            }
+        }
+    }
+}

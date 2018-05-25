@@ -1,0 +1,354 @@
+﻿
+/*Label price*/
+.discount {
+    background-color: #95c039;
+}
+
+.growth {
+    background-color: #e23037;
+}
+
+.equal {
+    background-color: #ffcc00;
+}
+
+.equality {
+    background-color: @primaryColor;
+
+    i {
+        .font-size(2.8);
+    }
+}
+
+
+.officialPrice {
+    h2 {
+        margin-bottom: 30px;
+    }
+
+    .descTitre {
+        .font-size(1.4);
+        width: 50%;
+        color: @mediumGrayColor;
+        text-align: center;
+        margin: 0 auto;
+        margin-bottom: 70px;
+    }
+
+    .blocPrice {
+        text-align: center;
+        background: @whiteColor;
+        position: relative;
+        padding: 30px;
+        padding-top: 60px;       
+
+
+        .pastille {
+            position: absolute;
+            height: 60px;
+            width: 60px;
+            border-radius: 50%;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            line-height: 66px;
+
+            i {
+                color: @lightGrayColor;
+                font-size: 35px;
+            }
+        }
+
+        .titlePrice {
+            .font-size(1.4);
+            font-weight: 600;
+            color: @mediumGrayColor;
+            text-transform: uppercase;
+
+            span {
+                .font-size(1.2);
+                padding-left:5px;
+            }
+        }
+
+        .price {
+            .font-size(2.4);
+            font-weight: 600;
+            color: @darkGrayColor;
+        }
+
+        &.NowHP {
+            padding: 10px;
+            margin-left: 30px;
+            text-align: left;
+
+            .pastille {
+                transform: none;
+                left: -30px;
+                text-align: center;
+            }
+
+            .titlePrice, .price {
+                padding-left: 20px;
+            }
+        }
+    }
+
+    .comment {
+        text-align: right;
+        font-weight: 200;
+        color: @mediumGrayColor;
+        .font-size(1.4);
+        margin-top: 5px;
+    }
+}
+
+.miniBloc .blocPrice + .blocPrice {
+    margin-top: 75px;
+}
+
+
+@media all and (max-width: 1199px) {
+    .officialPrice .descTitre {
+        text-align: left;
+        width: 100%;
+        margin-left: 0;
+    }
+}
+
+@media all and (max-width: 992px) {
+    .officialPrice h2 {
+        margin-bottom: 20px;
+    }
+
+    .officialPrice .blocPrice {
+        padding: 40px 20px 20px;
+    }
+}
+
+@media all and (max-width: 767px) {
+    .officialPrice .descTitre {
+        margin-bottom: 50px;
+    }
+
+    .officialPrice .orderFlex {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+
+        .miniBloc {
+            order: 1;
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+
+            .blocPrice {
+                flex: 1;
+                padding-top: 10px;
+
+                &.month {
+                    margin-right: 10px;
+                }
+
+                &.year {
+                    margin-left: 10px;
+                    margin-top: 0;
+                }
+            }
+
+            .pastille {
+                float: left;
+                top: auto;
+                left: auto;
+                transform: none;
+                background-color: transparent;
+                border-radius: 0;
+                height: auto;
+                width: auto;
+                position: relative;
+                line-height: normal;
+
+                i {
+                    font-size: 20px;
+                }
+
+                &.discount i {
+                    color: #95c039;
+                }
+
+                &.growth i {
+                    color: #e23037;
+                }
+
+                &.equal i {
+                    color: #ffcc00;
+                }
+            }
+        }
+
+        .comment {
+            order: 2;
+        }
+    }
+}
+
+/*Prix du mazout page de contenu*/
+.contenu {
+    .miniBloc {
+        margin-top: 50px;
+
+        .blocPrice + .blocPrice {
+            margin-top: 40px;
+        }
+    }
+
+    .officialPrice {
+        margin-bottom: 20px;
+
+        .blocPrice {
+            background-color: @lightGrayColor;
+            padding: 35px 10px 5px;
+        }
+
+        .orderFlex {
+            display: flex;
+
+            .miniBloc {
+                flex: 1 1 auto;
+            }
+        }
+
+        .bigBloc {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+
+            h2 {
+                margin-top: 20px;
+                margin-bottom: 15px;
+                .font-size(1.4);
+                font-weight: 600;
+            }
+
+            .SelectGraph {
+                background-color: @lightGrayColor;
+                padding: 15px;
+                .font-size(1.4);
+                font-weight: 600;
+                width: 100%;
+
+                select {
+                    padding-left: 5px;
+                    padding-right: 5px;
+                    width: 75px;
+                    background-color: transparent;
+                    border-bottom: 1px solid @primaryColor;
+                    border-top: none;
+                    border-left: none;
+                    border-right: none;
+                }
+            }
+
+            .graph {
+                display: block;
+                background-color: #f3f3f3;
+                width: 100%;
+                height: 100%;
+                margin-top: 10px;
+                padding-top: 10px;
+                flex: 1 1 auto;
+            }
+        }
+    }
+}
+
+@media all and (max-width: 767px) {
+    .contenu .officialPrice {
+        .miniBloc {
+            display: block;
+            order: 0;
+            font-size: 0;
+            margin-top: 40px;
+
+            .blocPrice.now {
+                margin-bottom: 40px;
+                padding: 10px;
+                margin-left: 30px;
+                text-align: left;
+                padding: 10px;
+                margin-left: 30px;
+                text-align: left;
+
+                .pastille {
+                    position: absolute;
+                    height: 60px;
+                    width: 60px;
+                    border-radius: 50%;
+                    top: -30px;
+                    line-height: 66px;
+                    transform: none;
+                    left: -30px;
+                    text-align: center;
+                    /*Label price*/
+                    &.discount {
+                        background-color: #95c039;
+                    }
+
+                    &.growth {
+                        background-color: #e23037;
+                    }
+
+                    &.equal {
+                        background-color: #ffcc00;
+                    }
+
+                    &.equality {
+                        background-color: @primaryColor;
+                    }
+
+                    i {
+                        color: @lightGrayColor;
+                        font-size: 35px;
+                    }
+                }
+
+                .titlePrice, .price {
+                    padding-left: 20px;
+                }
+            }
+
+            .blocPrice.month,
+            .blocPrice.year {
+                width: ~"calc((100% - 20px) / 2)";
+                vertical-align: top;
+                display: inline-block;
+            }
+
+            .blocPrice + .blocPrice {
+                margin-top: 0;
+            }
+        }
+
+        .bigBloc {
+            display: block;
+
+            .graph {
+                flex: 0;
+                margin-top: 20px;
+                height: auto;
+            }
+        }
+    }
+}
+
+@media all and (max-width: 400px) {
+    .contenu .officialPrice .miniBloc {
+
+        .blocPrice.month,
+        .blocPrice.year {
+            .titlePrice {
+                min-height: 40px;
+            }
+        }
+    }
+}

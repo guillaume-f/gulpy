@@ -1,0 +1,338 @@
+﻿.checkout {
+    .logo {
+        text-align: center;
+        margin-top: 5px;
+    }
+
+
+    .step1 {
+        margin-top: 20px;
+    }
+
+    .step2 h2:not(.active) {
+        cursor: pointer;
+    }
+    /*Titre*/
+    h2 {
+        display: block;
+        padding: 15px;
+        padding-left: 50px;
+        padding-right: 80px;
+        position: relative;
+        color: @mediumGrayColor;
+        background-color: @lightGrayColor;
+        margin: 0;
+
+
+        span {
+            color: @mediumGrayColor;
+            position: absolute;
+            top: 20px;
+            left: 10px;
+            font-size: 30px;
+        }
+
+        small {
+            display: block;
+            width: 100%;
+            .font-size(1.2);
+            font-style: italic;
+            text-transform: none;
+            color: @mediumGrayColor;
+        }
+
+        &.active {
+            color: @whiteColor;
+            background-color: @primaryColor;
+
+            span {
+                color: @whiteColor;
+            }
+
+            small {
+                color: @whiteColor;
+            }
+        }
+
+        &.complete {
+            span:after {
+                color: #34cc67;
+                content: "\48";
+                font-family: "proxifuel" !important;
+                font-size: 15px;
+                position: absolute;
+                left: 22px;
+            }
+        }
+
+        .complet {
+            color: #34cc67;
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            .font-size(1.4);
+            text-transform: none;
+        }
+    }
+    /*End titre*/
+    h3 {
+        .font-size(1.8);
+        font-weight: normal;
+        margin-bottom: 20px;
+    }
+
+    h4 {
+        .font-size(1.4);
+        text-transform: uppercase;
+    }
+
+    input[type=submit] {
+        height: auto;
+        white-space: normal;
+        line-height: normal;
+    }
+
+    p {
+        .font-size(1.4);
+        color: @mediumGrayColor;
+    }
+
+    textarea {
+        padding: 10px;
+        .font-size(1.4);
+        color: @mediumGrayColor;
+        min-height: 100px;
+    }
+
+    .step1 form:last-of-type {
+        border-left: @lightmediumGrayColor 1px solid;
+    }
+
+    .step4 {
+        color: @darkGrayColor;
+        background-color: @lightGrayColor;
+        padding: 20px;
+        position: relative;
+        min-height: 240px;
+
+        h3 {
+            .font-size(2.4);
+            font-family: @font-family-title;
+            text-align: center;
+            margin-top: 20px;
+            width: ~"calc(100% - 217px)";
+        }
+
+        p {
+            width: ~"calc(100% - 217px)";
+            text-align: center;
+        }
+
+        .addthis_toolbox {
+            display: inline-block;
+        }
+
+        a {
+            color: @whiteColor;
+            .font-size(1.4);
+            height: 40px;
+            line-height: 40px;
+            text-decoration: none;
+            display: block;
+            float: left;
+            padding-right: 20px;
+            margin-top: 20px;
+            opacity: 1;
+            .transition
+
+            span {
+                font-weight: 700;
+            }
+
+            span.icon {
+                width: 45px;
+                text-align: center;
+                border-right: 1px solid @whiteColor;
+                font-size: 20px;
+                font-weight: normal;
+                display: inline-block;
+                margin-right: 20px;
+                vertical-align: middle;
+            }
+
+            &.facebook {
+                background-color: @primaryColor;
+            }
+
+            &.mail {
+                margin-left: 20px;
+                background-color: @secondaryColor;
+            }
+
+            &:hover {
+                opacity: 0.8;
+            }
+        }
+
+        &:after {
+            background-image: url('../../Images/tom_camion-min@{version}.png');
+            height: 262px;
+            width: 217px;
+            content: "";
+            position: absolute;
+            bottom: -15px;
+            right: 5px;
+            z-index: 1;
+            background-size: cover;
+        }
+    }
+}
+
+.blocRightCheckout {
+    .validationMessage:not(:empty) {
+        position: absolute;
+        width: auto;
+        right: auto;
+        left: 0;
+        bottom: -33px;
+        z-index: 3;
+        .font-size(1.0);
+        padding: 5px;
+        background-color: @whiteColor;
+        box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.4);
+
+        &:before {
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 0 7px 7px 7px;
+            border-color: transparent transparent @whiteColor transparent;
+            position: absolute;
+            content: "";
+            top: -7px;
+        }
+    }
+
+    .resum {
+        background-image: url('../../Images/bkg_bleu_popup-min@{version}.jpg');
+        color: @whiteColor;
+        padding: 10px;
+        margin-top: 20px;
+        padding-bottom: 100px;
+        position: relative;
+    }
+
+    h3 {
+        .font-size(2.4);
+        font-weight: 600;
+        text-transform: uppercase;
+        margin-top: 5px;
+        margin-bottom: 30px;
+    }
+
+    ul {
+        padding: 0;
+        margin: 0;
+
+        li {
+            .font-size(1.4);
+            margin-bottom: 15px;
+            padding: 0;
+            overflow: hidden;
+            list-style: none;
+
+            span {
+                float: right;
+                text-align: right;
+            }
+        }
+    }
+
+    .promo {
+        color: @mediumGrayColor;
+        position: absolute;
+        bottom: 10px;
+
+        .form-group {
+            margin-bottom: 0;
+        }
+
+        label {
+            text-transform: uppercase;
+            color: @whiteColor;
+            width: 100%;
+        }
+
+        input[type="submit"] {
+            color: @whiteColor;
+            background-color: transparent;
+            text-transform: uppercase;
+            border: none;
+            width: auto;
+        }
+
+        input[type="text"] {
+            width: 100px;
+            .font-size(1.2);
+        }
+    }
+
+    .totalPrice {
+        background-color: #005198;
+        color: @whiteColor;
+        .font-size(2.3);
+        font-family: @font-family-title;
+        font-weight: 700;
+        padding: 10px;
+        position: relative;
+
+        span {
+            float: right;
+            text-align: right;
+        }
+
+        small {
+            .font-size(0.9);
+            text-align: right;
+            display: block;
+        }
+
+        &:after {
+            background-image: url('../../Images/tom_product-min@{version}.png');
+            height: 115px;
+            width: 45px;
+            content: "";
+            position: absolute;
+            top: -100px;
+            right: 5px;
+            z-index: 1;
+            background-size: cover;
+        }
+    }
+}
+
+@media (max-width: 991px) {
+    .checkout .step1 form:last-of-type {
+        border: none;
+    }
+}
+
+@media (max-width: 767px) {
+    .checkout .step4 {
+        &:after {
+            display: none;
+        }
+        h3, p{
+            width:100%;
+        }
+    }
+}
+@media (max-width: 540px) {
+    .checkout .step4 a{
+        width:100%;
+        &.mail{
+            margin-left:0;
+        }
+    }    
+}

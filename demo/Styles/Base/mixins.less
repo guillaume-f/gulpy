@@ -1,0 +1,105 @@
+﻿.font-size(@sizeValue) {
+    @remValue: @sizeValue;
+    @pxValue: (@sizeValue * 10);
+    font-size: ~"@{pxValue}px";
+    font-size: ~"@{remValue}rem";
+    /*.font-size(2.4);*/
+}
+
+
+.transition(@elements: all, @duration: 0.3s, @timingFunction: ease-out, @delay: 0s) {
+    -webkit-transition: @elements @duration @timingFunction @delay;
+    -moz-transition: @elements @duration @timingFunction @delay;
+    -o-transition: @elements @duration @timingFunction @delay;
+    transition: @elements @duration @timingFunction @delay;
+    /*.transition;*/
+}
+
+
+.flex-grid(@column, @gutter: 30px, @index: 0) {
+
+    .flexGrid-container {
+        display: flex;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+        flex-direction: row;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        margin-left: -@gutter;
+
+    }
+
+    [class^="flexGrid-col-"],
+    [class*=" flexGrid-col-"] {
+        -webkit-box-flex: 0;
+     -ms-flex: 0 0 auto;
+         flex: 0 0 auto;
+        display: block; // IE fix
+        position: relative;
+    }
+
+    .flex-col-xxs(@column, @gutter, (@index + 1));
+    .flex-col-xs(@column, @gutter, (@index + 1));
+    .flex-col-sm(@column, @gutter, (@index + 1));
+    .flex-col-md(@column, @gutter, (@index + 1));
+    .flex-col-lg(@column, @gutter, (@index + 1));
+}
+
+.flex-col-xxs(@column, @gutter, @index) when (@index =< @column) {
+
+    .flexGrid-col-xxs-@{index} {
+        width: ~'calc(((100% / @{column}) * @{index}) - @{gutter})';
+        margin-left: @gutter;
+    }
+
+    .flex-col-xxs(@column, @gutter, (@index + 1));
+}
+
+.flex-col-xs(@column, @gutter, @index) when (@index =< @column) {
+
+    @media all and (min-width: 575px) {
+        .flexGrid-col-xs-@{index} {
+            width: ~'calc(((100% / @{column}) * @{index}) - @{gutter})';
+            margin-left: @gutter;
+        }
+    }
+
+    .flex-col-xs(@column, @gutter, (@index + 1));
+}
+
+.flex-col-sm(@column, @gutter, @index) when (@index =< @column) {
+
+    @media all and (min-width: @screen-tablet) {
+        .flexGrid-col-sm-@{index} {
+            width: ~'calc(((100% / @{column}) * @{index}) - @{gutter})';
+            margin-left: @gutter;
+        }
+    }
+
+    .flex-col-sm(@column, @gutter, (@index + 1));
+}
+
+.flex-col-md(@column, @gutter, @index) when (@index =< @column) {
+
+    @media all and (min-width: @screen-desktop) {
+        .flexGrid-col-md-@{index} {
+            width: ~'calc(((100% / @{column}) * @{index}) - @{gutter})';
+            margin-left: @gutter;
+        }
+    }
+
+    .flex-col-md(@column, @gutter, (@index + 1));
+}
+
+.flex-col-lg(@column, @gutter, @index) when (@index =< @column) {
+
+    @media all and (min-width: @screen-lg-desktop) {
+        .flexGrid-col-lg-@{index} {
+            width: ~'calc(((100% / @{column}) * @{index}) - @{gutter})';
+            margin-left: @gutter;
+        }
+    }
+
+    .flex-col-lg(@column, @gutter, (@index + 1));
+}

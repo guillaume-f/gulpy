@@ -1,0 +1,92 @@
+﻿.blue.account {
+    p {
+        margin-top: 65px;
+        margin-bottom: 65px;
+        .font-size(1.4);
+    }
+
+    @media (max-width: 767px) {
+        p {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+    }
+}
+
+.wrapper_inner.blue.account > .container::after {
+    height: 220px;
+    width: 92px;
+    bottom: -24px;
+}
+
+.wrapper_inner.white.account {
+    min-height: 268px;
+
+    &.profil {
+        form {
+            float: left;
+            margin: 0;
+
+            [type="radio"]:checked + .label-box, [type="radio"]:not(:checked) + .label-box {
+                padding-right: 20px;
+            }
+        }
+    }
+
+    @media (max-width: 767px) {
+        min-height: initial;
+    }
+}
+
+.account {
+    form {
+        float: none;
+        margin: 0 auto;
+        margin-top: 40px;
+
+        p {
+            text-align: center;
+
+            &:last-of-type {
+                margin-bottom: 60px;
+            }
+        }
+
+        @media (max-width: 767px) {
+            margin-top: 20px;
+        }
+    }
+
+    input[type=submit] {
+        height: auto;
+        white-space: normal;
+        line-height: normal;
+    }
+
+
+
+    .linkToAdresse {
+        line-height: 0;
+        margin-bottom: 35px;
+
+        a {
+            .font-size(1.1);
+            color: #ff5964;
+            text-decoration: none;
+        }
+    }
+
+    small {
+        .font-size(0.9);
+    }
+}
+
+.account.profil {
+    h1 {
+        margin-bottom: 20px;
+    }
+}

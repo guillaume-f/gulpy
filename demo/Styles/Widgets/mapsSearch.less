@@ -1,0 +1,190 @@
+﻿.coordonnees {
+    background-color: @lightGrayColor;
+    padding: 30px;
+    color: @darkGrayColor;
+
+    h3 {
+        .font-size(1.6);
+        color: @primaryColor;
+        margin-top: 0;
+        margin-bottom: 10px;
+
+        i {
+            font-size: 35px;
+            margin-right: 10px;
+        }
+    }
+
+    h4 {
+        text-transform: uppercase;
+        .font-size(1.6);
+        margin-bottom: 10px;
+        margin-top: 20px;
+    }
+
+    p {
+        margin-bottom: 0;
+    }
+
+    .linkToAll {
+        color: @whiteColor;
+        text-transform: none;
+
+        i {
+            font-size: 18px;
+        }
+    }
+
+    .linkAction {
+        padding-top: 5px;
+
+        i {
+            color: @primaryColor;
+            padding-right: 5px;
+            vertical-align: middle;
+        }
+
+        a.Action {
+            color: @darkGrayColor;
+        }
+    }
+
+    a.btn-primary {
+        width: 100%;
+        display: block;
+        text-align: center;
+        margin-top: 25px;
+    }
+}
+
+.mapsSearch {
+    background-color: transparent;
+    position: relative;
+    margin-top: 15px;
+    min-height: 435px;
+
+    [data-map] {
+        min-height: 435px;
+    }
+
+    .searchBloc {
+        background-color: @primaryColor;
+        padding: 25px;
+        width: 320px;
+        color: @whiteColor;
+        position: absolute;
+        top: 30px;
+        left: 45px;
+        bottom: 30px;
+        display: block;
+        min-height: 375px;
+
+
+        h2 {
+            width: 100%;
+            text-align: center;
+        }
+        .inputCP:before{
+            top:2px;
+        }
+    }
+
+    form {
+        color: @darkGrayColor;
+        margin-bottom: 20px;
+
+        input {
+            width: 100%;
+        }
+
+        .btn-secondary {
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+    }
+
+    h2 {
+        margin-top: 0;
+    }
+
+    .coordonnees {
+        padding: 0;
+        background-color: transparent;
+        color: @whiteColor;
+
+        h3 {
+            color: @whiteColor;
+        }
+
+        .linkAction {
+            i {
+                color: @whiteColor;
+            }
+
+            a.Action {
+                color: @whiteColor;
+            }
+        }
+    }
+    /*Maps contenant les provinces pour les pages pro*/
+    &.mapZone {
+        background-color: transparent;
+
+        #mapBelgium {
+            text-align: right;
+            padding-right: 15%;
+            padding-top: 10px;
+            background-color: @whiteColor;
+            padding-bottom: 20px;
+
+
+            @media (max-width: 1199px) {
+                padding-right: 10px;
+            }
+
+            @media (max-width: 991px) {
+                padding-right: 0px;
+            }
+
+            @media (max-width: 767px) {
+                text-align: center;
+            }
+        }
+
+        .searchBloc {
+            @media (max-width: 991px) {
+                width: 200px;
+            }
+
+            @media (max-width: 767px) {
+                width: 100%;
+            }
+        }
+    }
+}
+
+@media (max-width: 767px) {
+    .about .mapsSearch {
+        margin-top: 20px;
+    }
+
+    .mapsSearch {
+        margin-top: 0;
+        min-height: initial;
+        margin-bottom: 20px;
+
+        .searchBloc {
+            position: relative;
+            width: 100%;
+            left: 0;
+            right: 0;
+            min-height: initial;
+            top: 0;
+            bottom: 0;
+        }
+
+        [data-map] {
+            display: none;
+        }
+    }
+}

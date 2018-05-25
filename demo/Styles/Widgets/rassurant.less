@@ -1,0 +1,226 @@
+﻿.rassurant {
+    background-image: url('../../Images/bkg_bleu-min@{version}.jpg');
+    background-position: center center;
+    position: relative;
+    font-size: 0;
+
+    h2 {
+        color: @whiteColor;
+        text-align: center;
+        margin-bottom: 0;
+    }
+
+    &.home {
+        article {
+            width: ~"calc((100% - 100px) / 3)";
+        }
+
+        &:after {
+            background-image: url('../../Images/pistolet-min@{version}.png');
+            position: absolute;
+            right: 0;
+            height: 195px;
+            width: 352px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-repeat: no-repeat;
+            content: "";
+        }
+
+        &:before {
+            background-image: url('../../Images/goutte_blue-min@{version}.png');
+            position: absolute;
+            left: ~"calc(100% - 352px)";
+            height: 98px;
+            width: 24px;
+            background-repeat: no-repeat;
+            content: "";
+            bottom: -97px;
+        }
+
+        .container {
+            font-size: 0;
+        }
+    }
+
+    article {
+        margin-top: 30px;
+        margin-bottom: 40px;
+        text-align: center;
+        color: @whiteColor;
+        display: inline-block;
+        vertical-align: top;
+        padding: 15px;
+
+        img {
+            width: 65px;
+            height: 65px;
+            display: none;
+            margin: 0 auto;
+
+            &.white {
+                display: block;
+            }
+        }
+
+        .title {
+            .font-size(1.8);
+            font-family: @font-family-title;
+            font-weight: 600;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        p {
+            .font-size(1.6);
+        }
+    }
+
+    &.three article {
+        width: ~"calc(100% / 3)";
+    }
+
+    &.four article {
+        width: ~"calc(100% / 4)";
+    }
+
+    &.five article {
+        width: ~"calc(100% / 5)";
+    }
+}
+
+@media all and (max-width: 1600px) {
+    .rassurant.home::after {
+        width: 250px;
+        background-size: contain;
+        background-position: center;
+    }
+
+    .rassurant.home::before {
+        left: ~"calc(100% - 250px)";
+        width: 15px;
+        background-size: contain;
+    }
+}
+
+@media all and (max-width: 1600px) {
+    .rassurant.home article {
+        width: ~"calc((100% - 200px) / 3)";
+    }
+}
+
+@media all and (max-width: 991px) {
+    .rassurant.home article {
+        width: ~"calc(100% / 3)";
+    }
+
+    .rassurant.home::after {
+        content: none;
+    }
+
+    .rassurant.home::before {
+        content: none;
+    }
+}
+
+@media (max-width: 575px) {
+
+    .rassurant {
+        background-color: @whiteColor;
+        background-image: none;
+
+        &.home article {
+            width: 100%;
+        }
+
+        h2 {
+            color: @mediumGrayColor;
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        article {
+            width: 100% !important;
+            margin: 0;
+            color: @mediumGrayColor;
+            text-align: left;
+            padding: 0;
+
+            img {
+                display: inline-block;
+
+                &.white {
+                    display: none;
+                }
+            }
+
+            .content {
+                width: ~"calc(100% - 80px)";
+                display: inline-block;
+                vertical-align: middle;
+                padding-left: 15px;
+            }
+            /*.title + p {
+                float: right;
+                padding-left: 0;
+            }*/
+            .title {
+                margin-top: 10px;
+                margin-bottom: 6px;
+                .font-size(1.6);
+            }
+
+            p {
+                .font-size(1.4);
+            }
+        }
+    }
+}
+
+
+
+/*Rassurant Checkout*/
+
+
+.checkout .rassurant {
+    background-color: @whiteColor;
+    background-image: none;
+   
+    h2 {
+        color: @mediumGrayColor;
+        text-align: left;
+        margin-bottom: 20px;
+    }
+
+    article {
+        width: 100% !important;
+        margin: 0;
+        color: @mediumGrayColor;
+        text-align: left;
+        padding-left: 0;
+        padding-right: 0;
+        padding-top:30px;
+        padding-bottom:0;
+        img {
+            float:left;    
+            display:block;
+        }
+
+        .title, p {
+            width: ~"calc(100% - 80px)";
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        p {
+            float: right;
+        }
+
+        .title {
+            margin-top: 0;
+            margin-bottom: 0;
+            padding-left: 15px;
+        }
+    }
+}

@@ -1,0 +1,40 @@
+﻿.simple-pagination {
+    text-align: center;
+    ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+
+        li {
+            .font-size(1.4);
+            color: @darkGrayColor;
+            display: inline-block;
+            padding:5px;
+            &.disabled {
+                color: lighten(@darkGrayColor, 20%);
+            }
+
+            &.active .current {
+                color: @whiteColor;
+                background-color: @primaryColor;
+                padding: 5px;
+                padding-top: 0px;
+                padding-bottom: 0px;
+            }
+
+            a.page-link {
+                text-decoration: none;
+                color: @darkGrayColor;
+
+                &:hover, &:active, &:focus {
+                    color: @primaryColor;
+                }
+            }
+
+            .prev, .next {
+                font-family: @icons;
+                vertical-align:bottom;
+            }
+        }
+    }
+}

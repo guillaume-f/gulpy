@@ -1,0 +1,243 @@
+﻿footer {
+    background-color: @mediumGrayColor !important;
+
+    ul {
+        margin: 0;
+        padding: 0;
+    }
+
+    &.home {
+        position: relative;
+
+        &::before {
+            content: "";
+            background-image: url('../../Images/goutte-min@{version}.png');
+            background-repeat: no-repeat;
+            height: 38px;
+            width: 17px;
+            display: block;
+            position: absolute;
+            top: -38px;
+            left: ~"calc(100% - 352px)";
+        }
+    }
+}
+
+.blocLogo {
+    padding-top: 20px;
+    color: @whiteColor;
+
+    img {
+        padding-bottom: 10px;
+    }
+
+    p {
+        .font-size(1.4);
+    }
+
+    a {
+        color: @whiteColor;
+        padding-top: 20px;
+        display: block;
+        text-decoration: underline;
+
+        &:hover, &:active, &:focus {
+            text-decoration: nones;
+        }
+    }
+}
+
+.footerNav {
+    li {
+        .font-size(1.8);
+        font-family: @font-family-title;
+        font-weight: 500;
+        color: @whiteColor;
+        list-style: none;
+        padding: 0;
+
+        a {
+            font-weight: normal;
+            color: @whiteColor;
+            text-decoration: none;
+
+            &:hover, &:active, &:focus {
+                text-decoration: underline;
+            }
+        }
+    }
+
+
+    .level1 {
+        padding-top: 30px;
+        padding-bottom: 30px;
+        text-transform: uppercase;
+
+        a {
+            .font-size(1.8);
+        }
+
+        & + .level1 {
+            padding-top: 0px;
+        }
+    }
+
+    .level2 {
+        text-transform: none;
+        padding-top: 20px;
+
+        a {
+            .font-size(1.4);
+        }
+    }
+}
+
+.downFooter {
+    background-color: @darkGrayColor;
+    font-family: @font-family-title;
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+    .downFooterNav {
+        font-size: 0;
+
+        li {
+            display: inline-block;
+            .font-size(1.0);
+            padding: 0;
+            padding-right: 10px;
+
+
+            &:after {
+                content: "|";
+                color: @whiteColor;
+                display: inline;
+            }
+
+            &:last-child {
+                padding-right: 0;
+
+                a {
+                    padding-right: 0;
+                }
+
+                &:after {
+                    content: none;
+                    visibility: hidden;
+                }
+            }
+        }
+
+        a {
+            color: @whiteColor;
+            padding-right: 10px;
+            text-transform: uppercase;
+            text-decoration: none;
+
+            &:hover, &:active, &:focus {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    .copyright {
+        .font-size(1.2);
+        color: @whiteColor;
+
+        a {
+            color: @whiteColor;
+            text-decoration: none;
+
+            &:hover, &:active, &:focus {
+                text-decoration: underline;
+            }
+        }
+    }
+}
+/*Responsive*/
+@media all and (max-width: 1600px) {
+
+    footer.home::before {
+        left: ~"calc(100% - 250px)";
+    }
+}
+
+@media all and (max-width: 991px) {
+
+    footer.home::before {
+        content: none;
+    }
+}
+
+@media all and (max-width: 767px) {
+
+    .downFooter {
+        .downFooterNav {
+            text-align: center;
+        }
+
+        .copyright {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+    }
+}
+
+@media all and (max-width: 575px) {
+    .footerNav .col-xxs-12 {
+        font-size: 0;
+
+        .level1 {
+            width: 50%;
+            display: inline-block;
+            vertical-align: top;
+
+            & + .level1 {
+                padding-top: 30px;
+            }
+        }
+    }
+
+    .blocLogo {
+        padding-top: 20px;
+        padding-bottom: 10px;
+        font-size: 0;
+
+        .borderBottomMobile {
+            border-bottom: 1px solid @whiteColor;
+
+            > * {
+                display: inline-block;
+                vertical-align: top;
+            }
+        }
+
+        .logofooter {
+            width: 50%;
+        }
+
+        p {
+            width: 50%;
+        }
+    }
+
+    footer.home .footerNav::before {
+        visibility: hidden;
+        display: none;
+    }
+
+    .downFooter {
+        .downFooterNav li {
+            display: block;
+            padding-right: 0;
+
+            a {
+                padding: 10px 0;
+            }
+
+            &:after {
+                content: none;
+            }
+        }
+    }
+}

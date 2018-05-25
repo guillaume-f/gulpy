@@ -1,0 +1,334 @@
+﻿.planBudgetaire {
+    h2.titleWrapper {
+        margin-top: 60px;
+        margin-bottom: 60px;
+        .font-size(2.4);
+    }
+
+    .irs-slider {
+        display: none;
+    }
+
+    .irs-from, .irs-to, .irs-single {
+        color: @primaryColor;
+        background-color: #e5e5e5;
+        padding: 3px;
+
+        &:after {
+            border-color: #e5e5e5 rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
+        }
+    }
+    /*Titre qui change en fonction de la checkbox*/
+    .titleCheck {
+        position: relative;
+
+        label {
+            text-align: center;
+            color: @whiteColor;
+            font-family: @font-family-title;
+            background-color: @lightmediumGrayColor;
+            display: block;
+            .font-size(1.8);
+            font-weight: normal;
+            text-transform: uppercase;
+            height: 50px;
+            line-height: 50px;
+            width: 100%;
+            user-select: none;
+            padding-left: 0;
+        }
+
+        [type="checkbox"]:checked + .label-box {
+            background-color: @primaryColor;
+            padding-left: 0;
+        }
+
+        [type="checkbox"]:not(:checked) + .label-box {
+            padding-left: 0;
+        }
+
+        [type="checkbox"]:checked + .label-box::before,
+        [type="checkbox"]:not(:checked) + .label-box::before {
+            height: 30px;
+            width: 30px;
+            border-radius: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            left: 10px;
+        }
+
+        [type="checkbox"]:checked + .label-box::after,
+        [type="checkbox"]:not(:checked) + .label-box::after {
+            text-transform: none;
+            font-size: 20px;
+            left: 15px;
+            top: 0;
+        }
+
+        &:after {
+            content: "";
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: -15px;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 15px 20px 0 20px;
+            border-color: @lightmediumGrayColor transparent transparent transparent;
+        }
+
+        &.checked:after {
+            border-color: @primaryColor transparent transparent transparent;
+        }
+    }
+
+    .ombre {
+        background-color: @whiteColor;
+        box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.3);
+    }
+
+    .formContent {
+        padding: 30px;
+
+        .form-group {
+            margin-bottom: 35px;
+            padding-left: 55px;
+
+            &.range {
+                padding-bottom: 80px;
+                margin: 0;
+
+                label {
+                    margin-bottom: 20px;
+                }
+            }
+        }
+    }
+
+    .formContent input, .formContent select, .formContent .select2 {
+        border: none;
+        border-bottom: 1px solid @primaryColor;
+        color: @primaryColor;
+        border-radius: 0;
+        width: 170px !important;
+        padding-left: 0;
+        .font-size(1.6);
+        display: inline-block;
+        box-shadow: none;
+
+        &:focus {
+            box-shadow: none;
+        }
+
+        .select2-selection {
+            border: none;
+            height: 29px;
+        }
+    }
+
+
+    .formContent label {
+        display: block;
+        width: 100%;
+        .font-size(1.8);
+        font-weight: normal;
+        color: @mediumGrayColor;
+        margin-bottom: 0;
+    }
+
+    .formContent .help-block {
+        display: inline-block;
+        vertical-align: bottom;
+        .font-size(1.6);
+        color: @primaryColor;
+        margin-bottom: 0;
+        padding-left: 10px;
+
+        span {
+            .font-size(1.2);
+        }
+    }
+
+    .formContent .codePostal {
+        &:after {
+            content: "x";
+            font-family: @icons;
+            color: @primaryColor;
+            font-size: 25px;
+            left: 5px;
+            position: relative;
+            top: 5px;
+        }
+
+        .validationMessage {
+            position: absolute;
+            bottom: -33px;
+            background-color: @whiteColor;
+            padding: 5px;
+            box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.4);
+            .font-size(1.0);
+            width: 150px;
+
+            &:before {
+                width: 0;
+                height: 0;
+                border-style: solid;
+                border-width: 0 7px 7px 7px;
+                border-color: transparent transparent @whiteColor transparent;
+                position: absolute;
+                content: "";
+                top:-7px;
+            }
+        }
+    }
+
+    .simulation {
+        h3 {
+            .font-size(1.8);
+            text-transform: none;
+            font-weight: normal;
+        }
+
+        .blocPrice {
+            background-color: #f0f0f0;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+
+            .Price {
+                .font-size(3.6);
+                height: 40px;
+
+                span {
+                    .font-size(1.8);
+                }
+            }
+
+            small {
+                display: inline-block;
+                vertical-align: top;
+                width: 100%;
+                .font-size(1.2);
+                 padding-top:5px;
+            }
+
+            .small {
+                .font-size(0.9);
+                position: absolute;
+                left: 5px;
+                bottom: 3px;
+            }
+        }
+    }
+    /*Positionnement des bullets*/
+    .formContent {
+        .form-group {
+            position: relative;
+
+            &:before {
+                height: 36px;
+                width: 36px;
+                border-radius: 50%;
+                border: 1px solid @mediumGrayColor;
+                background-color: @whiteColor;
+                content: "";
+                .font-size(2.2);
+                color: @mediumGrayColor;
+                text-align: center;
+                display: block;
+                position: absolute;
+                left: 0;
+                z-index: 3;
+            }
+
+            &:nth-child(1):before {
+                content: "1";
+            }
+
+            &:nth-child(2):before {
+                content: "2";
+            }
+
+            &:nth-child(3):before {
+                content: "3";
+            }
+
+            &:after {
+                height: 100%;
+                border-left: 1px solid @mediumGrayColor;
+                display: block;
+                z-index: 1;
+                position: absolute;
+                left: 17px;
+                top: 35px;
+                content: "";
+            }
+        }
+
+        .form-group.last:after {
+            content: none;
+        }
+    }
+
+    .btn-primary {
+        width: 100%;
+        margin-top: 30px;
+        margin-bottom: 60px;
+        height: 50px;
+        color: @whiteColor;
+        white-space: normal;
+    }
+}
+
+
+@media (max-width: 1199px) {
+    .planBudgetaire .formContent .form-group.range {
+        padding-bottom: 108px;
+    }
+}
+
+@media (max-width: 991px) {
+    .planBudgetaire .formContent .form-group.range {
+        padding-bottom: 133px;
+    }
+}
+
+@media (max-width: 767px) {
+    .wrapper_inner .planBudgetaire h2.titleWrapper {
+        .font-size(1.8);
+        margin-bottom: 20px;
+        margin-top: 0px;
+    }
+
+    .planBudgetaire {
+        form > div {
+            margin-bottom: 15px;
+        }
+
+        .btn-primary {
+            margin-bottom: 0;
+            margin-top: 0;
+        }
+
+        .formContent {
+            padding-top: 30px;
+            padding-bottom: 10px;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+        .formContent .form-group {
+            padding-left: 45px;
+
+            &.range {
+                padding-bottom: 35px;
+            }
+        }
+
+        .btn-primary {
+            height: auto;
+            padding: 5px;
+        }
+    }
+}

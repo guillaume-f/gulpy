@@ -1,0 +1,174 @@
+﻿/* wrapper styles */
+.wrapper {
+    position: relative;
+    min-height: 100vh;
+}
+
+.wrapper_inner {
+    &.white {
+        background-color: @whiteColor;
+        padding-bottom: 30px;
+        overflow: hidden;
+
+        @media (max-width: 576px) {
+            padding-bottom: 10px;
+        }
+    }
+
+    &.gray {
+        background-color: @lightGrayColor;
+    }
+
+    &.blue {
+        background-image: url('../../Images/bkg_bleu-min@{version}.jpg');
+        background-position: center center;
+        position: relative;
+        color: @whiteColor;
+
+
+        .container {
+            position: relative;
+        }
+
+        > .container:after {
+            background-image: url('../../Images/tom_gauche-min@{version}.png');
+            height: 368px;
+            width: 154px;
+            position: absolute;
+            left: 0;
+            bottom: -41px;
+            background-repeat: no-repeat;
+            background-size: contain;
+        }
+
+        @media all and (max-width: 767px) {
+            > .container:after {
+                content: none;
+            }
+        }
+    }
+    /*Page 404*/
+    &.blue.notFound {
+        height: 61vh;
+
+        > .container:after {
+            top: 30px;
+        }
+
+        h1 {
+            .font-size(4.8);
+            margin-bottom: 50px;
+            margin-top: 50px;
+        }
+
+        p {
+            margin-bottom: 50px;
+        }
+
+        .row {
+            .font-size(1.6);
+        }
+    }
+
+    h1 {
+        margin-top: 30px;
+    }
+
+    h2.titleWrapper {
+        margin-top: 40px;
+    }
+}
+/* END wrapper styles */
+
+.wrapper_inner.gray {
+    .callToAction {
+        .ctaMini, .ctaFull {
+            margin-top: 60px;
+            margin-bottom: 60px;
+        }
+    }
+
+    .actu {
+        margin-top: 60px;
+        padding-bottom: 60px;
+        margin-bottom: 0;
+    }
+
+    .callToAction + .actu {
+        margin-top: 0;
+    }
+
+    .bottomFaq {
+        margin-top: 40px;
+        margin-bottom: 40px;
+
+        @media (max-width: 767px) {
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+    }
+
+    .proxidrive.mapsSearch {
+        margin-top: 20px;
+        margin-bottom: 40px;
+    }
+
+    .simple-pagination {
+        padding-bottom: 20px;
+    }
+    .mapZone.delegatesMap{
+        margin-top:60px;
+        margin-bottom:0;
+    }
+    .forPros .mapZone.delegatesMap{
+        margin-top: 40px;
+        margin-bottom:60px;
+    }
+}
+
+@media all and (max-width: 767px) {
+    .wrapper_inner h2.titleWrapper {
+        padding-left: 15px;
+        padding-right: 15px;
+        margin-top: 0;
+    }
+
+    .wrapper_inner.gray {
+        background-color: @whiteColor;
+
+        .callToAction .ctaMini,
+        .callToAction .ctaFuelFull.mazout,
+        .proxidrive.mapsSearch {
+            margin-top: 0;
+            margin-bottom: 1px;
+
+            [data-map] {
+                display: block;
+                min-height: 210px;
+            }
+        }
+    }
+}
+
+@media all and (max-width: 575px) {
+    .wrapper_inner.gray {
+        .forPros .mapZone.delegatesMap {
+            margin-bottom: 15px;
+        }
+    }
+}
+
+
+
+/*hauteur minimum pour les pages My...*/
+
+.wrapper_inner.white {
+    &.myciterne,
+    &.myreview,
+    &.statutPaiement,
+    &.myorders,
+    &.paiementechelonne,
+    &.account.profil {
+        min-height: ~"calc(100vh - 500px)";
+    }
+}

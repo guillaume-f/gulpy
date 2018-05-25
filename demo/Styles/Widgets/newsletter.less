@@ -1,0 +1,65 @@
+﻿.newsletter form {
+    background-image: url('../../Images/newsletter-min@{version}.jpg');
+    background-position: center center;
+    text-align: center;
+    padding-bottom: 30px;
+    background-size: cover;
+    padding-top: 20px;
+
+    h4 {
+        text-transform: uppercase;
+        color: @whiteColor;
+        font-weight: 600;
+        margin: 0 auto;
+        margin-bottom: 20px;
+    }
+}
+
+.formNewsletter {
+    width: 350px;
+    position: relative;
+    margin: 0 auto;
+
+    &:before {
+        content: "k";
+        position: absolute;
+        left: 15px;
+        top: 0;
+        font-family: @icons;
+        color: #e24147;
+        font-size: 25px;
+    }
+
+    input[type="email"] {
+        width: 100%;
+        padding-left: 50px;
+        height: 40px;
+    }
+
+    input[type="submit"] {
+        position: absolute;
+        right: 1px;
+        top: 1px;
+        height: 38px;
+        font-family: @icons;
+        color: #e24147;
+        text-transform: none;
+        font-size: 25px;
+        width: auto;
+    }
+
+    .validationMessage {
+        color: @whiteColor;
+    }
+}
+
+@media all and (max-width: 575px) {
+    .newsletter.container {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .formNewsletter, h4 {
+        width: 80%;
+    }
+}
